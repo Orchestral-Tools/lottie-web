@@ -14419,8 +14419,10 @@
       var velocityAtTime;
       var scoped_bm_rt;
       // val = val.replace(/(\\?"|')((http)(s)?(:\/))?\/.*?(\\?"|')/g, "\"\""); // deter potential network calls
-      // Fix: Disable eval statement
       // var expression_function = eval('[function _expression_function(){' + val + ';scoped_bm_rt=$bm_rt}]')[0]; // eslint-disable-line no-eval
+      var expression_function = function expression_function() {
+        throw new Error('Eval is not supported');
+      };
       var numKeys = property.kf ? data.k.length : 0;
       var active = !this.data || this.data.hd !== true;
       var wiggle = function wiggle(freq, amp) {
@@ -14683,8 +14685,7 @@
         if (needsVelocity) {
           velocity = velocityAtTime(time);
         }
-        // Fix: Disable eval statement
-        // expression_function();
+        expression_function();
         this.frameExpressionId = elem.globalData.frameId;
 
         // TODO: Check if it's possible to return on ShapeInterface the .v value
